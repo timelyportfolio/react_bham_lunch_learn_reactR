@@ -1,0 +1,198 @@
+---
+title: "R + JS"
+subtitle: "Introducing reactR"
+author: "Kent Russell"
+institute: "<a style = 'color:gray;' href='https://github.com/timelyportfolio'>@timelyportfolio</a>"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      titleSlideClass: [right, middle, inverse]
+    css:
+      [xaringan-themer.css, styles.css]
+---
+class: left, middle
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+library(leaflet)
+library(htmltools)
+library(reactR)
+library(roffice)
+```
+
+```{r xaringan-themer, include = FALSE}
+library(xaringanthemer)
+mono_accent(
+  base_color = "#3a6579",
+  header_font_family = "Public Sans Regular",
+  header_h3_font_size = "28px",
+  text_font_family   = "Public Sans Light",
+  code_font_family   = "Fira Code",
+  link_color = "#8796a3"
+)
+```
+
+
+# Why R?
+
+### Language of data science (*Python works too*)
+### Open and cross-platform
+### Confirmed usage at Google, Facebook, Uber, Microsoft, Twitter, Netflix, Airbnb, New York Times, Financial Times, ...
+### Integrates with other programming languages
+### Best, most feature-complete charting and graphics
+### Friendly, nice, and welcoming community
+
+---
+class: left, middle
+
+# What if you want to do Data Science in JavaScript?
+
+
+### [Learn JS Data](http://learnjsdata.com/)
+### [Simple Statistics](https://simplestatistics.org/)
+### [Tensorflow.js](https://www.tensorflow.org/js)
+### [Rjs](https://github.com/R-js) - "... re-writing the `R` language to the browser and node"
+
+---
+class: left, middle
+
+# What if you want to do Web with R?
+
+
+### [opencpu](https://www.opencpu.org/) - http API based on R
+### [plumber](https://www.rplumber.io/) - web API from R code
+### [rmarkdown](https://rmarkdown.rstudio.com/) - markdown + R + other languages
+### [Shiny](https://shiny.rstudio.com/) - reactive, interactive web apps from R
+### [htmlwidgets](http://htmlwidgets.org) - wrap HTML/JS/CSS for use in R
+### [rvest](https://github.com/tidyverse/rvest) - web scraping for R
+### [V8](https://cran.r-project.org/web/packages/V8/vignettes/v8_intro.html) - embedded V8 for R
+
+---
+class: top, left
+
+# What Does R Look Like?
+
+.pull-left[
+## JavaScript
+
+```js
+[1,2,3]
+```
+
+```js
+{
+  x: "string",
+  y: true
+}
+```
+
+```js
+function(x) { return x+2 }
+```
+]
+
+.pull-right[
+## R
+
+```{r eval = FALSE}
+c(1,2,3)
+```
+
+```{r eval = FALSE}
+list(
+  x = "string",
+  y = TRUE
+)
+```
+
+```{r eval = FALSE}
+function(x) { return(x+2) }
+```
+]
+
+---
+class: top, left
+
+# R + JS | an example htmlwidget
+
+```{r out.width='100%', fig.height=4.5}
+library(leaflet)
+leaflet() %>%
+  addTiles() %>%
+  setView(-86.786324, 33.5141587, zoom = 17)
+```
+
+
+---
+class: top, left
+
+# R + JS | now with React !!
+
+[`office-ui-fabric-react`](https://developer.microsoft.com/en-us/fabric/#/components) React components
+
+[`roffice`](https://github.com/react-R/roffice) R package
+
+.pull-left[
+```{r}
+officeuiwidget(
+  React$Slider(
+    label = "a slider",
+    min = 1,
+    max = 5,
+    step = 1,
+    defaultValue = 2,
+    showValue = TRUE
+  )
+)
+```
+]
+
+.pull-right[
+```js
+<Slider
+  label="a slider"
+  min={1}
+  max={5}
+  step={1}
+  defaultValue={2}
+  showValue={true}
+/>
+```
+]
+---
+class: top, left
+
+## More R + React Examples
+
+```{r}
+officeuiwidget( React$DatePicker() )
+```
+
+```{r}
+officeuiwidget( 
+  React$CommandBar(
+    items = list(
+      list(
+        key = 'upload', name = 'Upload',
+        iconProps = list(iconName = 'Upload')
+      ),
+      list(
+        key = 'share', name = 'Share',
+        iconProps = list(iconName = 'Share')
+      )
+    )
+  )
+)
+```
+
+---
+class: top, left
+
+## R + React in a Shiny App
+
+![animated screencast of Shiny app](react_shiny_example.gif)
