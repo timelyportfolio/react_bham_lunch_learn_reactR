@@ -2,3 +2,7 @@
   background-image: url(./logo.svg);
   background-size: cover;
 }
+
+a:hover {
+  text-decoration: underline;
+}
